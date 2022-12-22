@@ -36,7 +36,7 @@ intermediate_ca_prefix="azure-iot-test-only.intermediate"
 
 function makeCNsubject()
 {
-    local result="/CN=${1}"
+    local result="//CN=${1}"
     case $OSTYPE in win32) result="/${result}"
     esac
     echo "$result"
@@ -363,11 +363,18 @@ function generate_device_certificate_from_intermediate()
     fi
 
     rm -f ./private/new-device.key.pem
-    rm -f ./certs/new-device.key.pem
+    rm -f ./certs/new-device.cert.pem
     rm -f ./certs/new-device-full-chain.cert.pem
     generate_leaf_certificate "${1}" "new-device" \
                               "${intermediate_ca_dir}" "${intermediate_ca_password}" \
                               "${openssl_intermediate_config_file}"
+							  
+	mkdir -p ./workdir
+
+	cat ./certs/new-device.cert.pem \
+		./certs/azure-iot-test-only.chain.ca.cert.pem \
+		> "./workdir/${1}-full-chain.cert.pem"
+	cp ./private/new-device.key.pem "./workdir/${1}.key.pem"
 }
 
 

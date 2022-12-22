@@ -42,11 +42,7 @@ On Azure IoT Hub, navigate to the IoT Devices section, or launch Azure IoT Explo
 
 ## Step 5 - Cleanup
 
-### **PowerShell***
-
-From start menu, open `manage computer certificates` and navigate Certificates -Local Compturer-->personal.  Remove certificates issued by "Azure IoT CA TestOnly*".  Similarly remove them from "Trusted Root Certification Authority->Certificates" and "Intermediate Certificate Authorities->Certificates".
-
-### **Bash**
+### **cleanup.sh**
 
 Bash outputs certificates to the current working directory, so there is no analogous system cleanup needed.
 
